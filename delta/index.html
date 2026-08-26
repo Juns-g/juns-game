@@ -1,27 +1,482 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Delta · game.juns.page</title>
-  <style>
-    :root { color-scheme: dark; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100svh; display: grid; place-items: center; background: #0b0d10; color: #f5f7fa; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-    main { width: min(720px, calc(100% - 48px)); }
-    p { margin: 0 0 14px; color: #8d97a6; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
-    h1 { margin: 0; font-size: clamp(48px, 12vw, 104px); letter-spacing: -.08em; line-height: .9; }
-    .line { width: 72px; height: 1px; margin: 28px 0; background: #39d98a; }
-    small { color: #657082; }
-  </style>
-</head>
-<body>
-  <main>
-    <p>game.juns.page / delta</p>
-    <h1>Delta</h1>
-    <div class="line"></div>
-    <small>A placeholder for what comes next.</small>
-  </main>
-</body>
-</html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+    <meta name="description" content="胜者为王每日地图排期。">
+    <title>《胜者为王》地图</title>
+    <link rel="stylesheet" href="./vendor/vanilla-calendar-pro/styles/index.css">
+    <style>
+      :root {
+        color-scheme: dark light;
+        --canvas: #0c0d12;
+        --canvas-glow: #141629;
+        --surface: #161820;
+        --surface-raised: #1d202a;
+        --surface-hover: #242834;
+        --ink: #f4f5f8;
+        --muted: #9ca2b1;
+        --faint: #6e7482;
+        --line: rgba(255, 255, 255, .09);
+        --blue: #8ea9c9;
+        --blue-wash: rgba(142, 169, 201, .14);
+        --coral: #d79672;
+        --coral-wash: rgba(215, 150, 114, .14);
+        --highlight: #e6c27a;
+        --highlight-wash: rgba(230, 194, 122, .16);
+        --shadow: 0 18px 42px rgba(0, 0, 0, .24), inset 0 1px rgba(255, 255, 255, .035);
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --canvas: #eef0f7;
+          --canvas-glow: #e1e7fb;
+          --surface: #ffffff;
+          --surface-raised: #f7f8fc;
+          --surface-hover: #edf2ff;
+          --ink: #171923;
+          --muted: #626a7b;
+          --faint: #81899a;
+          --line: rgba(24, 30, 48, .11);
+          --blue: #4e7197;
+          --blue-wash: rgba(78, 113, 151, .12);
+          --coral: #aa664d;
+          --coral-wash: rgba(170, 102, 77, .12);
+          --highlight: #a96f19;
+          --highlight-wash: rgba(169, 111, 25, .13);
+          --shadow: 0 16px 36px rgba(44, 57, 86, .10), inset 0 1px rgba(255, 255, 255, .9);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { background: var(--canvas); }
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          radial-gradient(900px 520px at 12% -10%, var(--canvas-glow), transparent 66%),
+          var(--canvas);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+        font-feature-settings: "calt", "kern", "liga";
+      }
+      button { font: inherit; }
+      .shell { width: min(calc(100% - 32px), 1024px); margin: 0 auto; padding: clamp(32px, 7vw, 76px) 0 56px; }
+      .header { display: grid; min-width: 0; gap: 24px; transition: padding-bottom .15s ease; }
 
+      h1 { margin: 0; font-size: clamp(38px, 5.6vw, 58px); font-weight: 680; letter-spacing: -.055em; line-height: 1.05; }
+      .date-control {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr) 56px;
+        min-width: 0;
+        width: 100%;
+        min-height: 64px;
+        overflow: visible;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+      .date-control > button {
+        display: grid;
+        min-width: 44px;
+        min-height: 56px;
+        place-items: center;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 23px;
+        line-height: 1;
+        transition: background .15s ease, color .15s ease, opacity .15s ease;
+      }
+      .date-control > button:hover:not(:disabled), .date-control > button:focus-visible { background: var(--surface-hover); color: var(--ink); outline: none; }
+      .date-control > button:focus-visible { box-shadow: inset 0 0 0 2px var(--blue); }
+      .date-control > button:disabled { opacity: .28; cursor: not-allowed; }
+      .date-picker { position: relative; display: flex; min-width: 0; border-inline: 1px solid var(--line); }
+      .date-picker-trigger { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 56px; padding: 0 14px; border: 0; background: transparent; color: var(--ink); cursor: pointer; font: inherit; font-size: 16px; font-weight: 650; letter-spacing: -.02em; transition: background .15s ease, color .15s ease; }
+      .date-picker-trigger:hover, .date-picker-trigger[aria-expanded="true"] { background: var(--surface-hover); }
+      .date-picker-trigger:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--blue); }
+      .calendar-icon { width: 17px; height: 17px; flex: 0 0 auto; color: var(--muted); }
+      .date-picker-popover { position: absolute; z-index: 10; top: calc(100% + 10px); left: 50%; width: min(340px, calc(100vw - 24px)); padding: 16px; transform: translateX(-50%); border: 1px solid var(--line); border-radius: 16px; background: var(--surface-raised); box-shadow: 0 20px 48px rgba(0, 0, 0, .38), inset 0 1px rgba(255, 255, 255, .045); }
+      #calendar {
+        min-width: 0;
+        width: 100%;
+        padding: 0;
+        --vc-bg: transparent;
+        --vc-color: var(--ink);
+        --vc-focus-outline-color: var(--blue);
+        --vc-header-color: var(--ink);
+        --vc-title-color: var(--ink);
+        --vc-title-color-disabled: var(--faint);
+        --vc-title-color-hover: var(--blue);
+        --vc-week-day-color: var(--muted);
+        --vc-week-day-off-color: var(--muted);
+        --vc-date-bg: transparent;
+        --vc-date-bg-hover: var(--surface-hover);
+        --vc-date-color: var(--ink);
+        --vc-date-color-hover: var(--ink);
+        --vc-date-disabled-color: var(--faint);
+        --vc-date-outside-color: var(--faint);
+        --vc-date-today-bg: var(--surface-hover);
+        --vc-date-today-color: var(--blue);
+        --vc-date-today-outside-color: var(--faint);
+        --vc-date-weekend-color: var(--ink);
+        --vc-date-weekend-bg-hover: var(--surface-hover);
+        --vc-date-weekend-disabled-color: var(--faint);
+        --vc-date-weekend-disabled-outside-color: var(--faint);
+        --vc-date-weekend-outside-color: var(--faint);
+        --vc-date-weekend-outside-bg: transparent;
+        --vc-date-weekend-outside-bg-hover: var(--surface-hover);
+        --vc-date-weekend-outside-color-hover: var(--ink);
+        --vc-date-selected-bg: var(--blue);
+        --vc-date-selected-color: var(--surface);
+        --vc-date-weekend-selected-bg: var(--blue);
+        --vc-date-weekend-selected-color: var(--surface);
+      }
+      #calendar [data-vc-date-btn] { min-height: 36px; }
+      #calendar [data-vc-date-selected] { background: transparent; }
+      #calendar [data-vc-date-selected] [data-vc-date-btn],
+      #calendar [data-vc-date-selected] [data-vc-date-btn]:hover {
+        background: var(--blue);
+        color: var(--surface);
+        box-shadow: none;
+      }
+      .days { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-width: 0; gap: 16px; margin-top: 20px; }
+      .day-card {
+        position: relative;
+        overflow: hidden;
+        min-width: 0;
+        min-height: 292px;
+        padding: 28px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+      .day-card::before { position: absolute; top: 0; right: 0; left: 0; height: 4px; background: var(--blue); content: ""; }
+      .day-card.tomorrow::before { background: var(--coral); }
+      .day-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+      .day-name { margin: 0; color: var(--blue); font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
+      .tomorrow .day-name { color: var(--coral); }
+      .day-date { color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; }
+      .map-list { display: grid; gap: 0; margin-top: 34px; }
+      .map-name { padding: 13px 0; border-top: 1px solid var(--line); font-size: clamp(25px, 3vw, 32px); font-weight: 680; letter-spacing: -.05em; line-height: 1.18; }
+      .map-name > span { display: inline-block; }
+      .map-name:last-child { border-bottom: 1px solid var(--line); }
+      .map-name.is-highlighted > span { margin-inline: -10px; padding: 4px 10px 5px; border: 1px solid color-mix(in srgb, var(--highlight) 64%, var(--line)); border-radius: 10px; background: var(--highlight-wash); box-shadow: inset 0 1px rgba(255, 255, 255, .05); color: var(--highlight); }
+      .schedule { min-width: 0; margin-top: 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
+      .schedule-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 23px 28px 19px; }
+      h2 { margin: 0; font-size: 20px; font-weight: 680; letter-spacing: -.04em; }
+      .schedule-head p { margin: 0; color: var(--muted); font-size: 13px; }
+      .schedule-list { margin: 0; padding: 0; list-style: none; }
+      .schedule-item { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: center; min-height: 53px; padding: 10px 28px; border-top: 1px solid var(--line); }
+      .schedule-item.is-selected { background: linear-gradient(90deg, var(--blue-wash), transparent 65%); }
+      .schedule-date { color: var(--muted); font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace; font-size: 13px; font-weight: 600; }
+      .schedule-maps { min-width: 0; color: var(--ink); font-size: 15px; font-weight: 600; letter-spacing: -.015em; line-height: 1.45; }
+      .schedule-map.is-highlighted { padding: 2px 3px; border-radius: 5px; background: var(--highlight-wash); color: var(--highlight); }
+      .highlight-settings { margin-top: 20px; padding: 22px 28px 25px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
+      .highlight-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+      .highlight-copy { display: grid; gap: 3px; }
+      .highlight-copy h2 { font-size: 18px; }
+      .highlight-copy p { margin: 0; color: var(--muted); font-size: 13px; }
+      .clear-highlights { min-height: 44px; padding: 0 11px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--muted); cursor: pointer; font-size: 13px; touch-action: manipulation; }
+      .clear-highlights:hover, .clear-highlights:focus-visible { border-color: var(--highlight); color: var(--ink); outline: none; }
+      .clear-highlights:active { opacity: .78; }
+      .highlight-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+      .highlight-chip { min-height: 44px; padding: 0 13px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-raised); color: var(--muted); cursor: pointer; font-size: 14px; font-weight: 600; touch-action: manipulation; transition: background .15s ease, border-color .15s ease, color .15s ease, opacity .15s ease; }
+      .highlight-chip:hover, .highlight-chip:focus-visible { border-color: var(--highlight); color: var(--ink); outline: none; }
+      .highlight-chip:active { opacity: .78; }
+      .highlight-chip[aria-pressed="true"] { border-color: color-mix(in srgb, var(--highlight) 76%, var(--line)); background: var(--highlight-wash); color: var(--highlight); }
+      footer { margin-top: 18px; color: var(--faint); font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace; font-size: 11px; letter-spacing: .04em; text-align: right; }
+      @media (max-width: 680px) {
+        .shell { width: min(calc(100% - 24px), 640px); padding-top: 32px; }
+        .header { gap: 18px; }
+
+        h1 { font-size: clamp(36px, 11vw, 46px); }
+        .date-control { grid-template-columns: 56px minmax(0, 1fr) 56px; width: 100%; min-height: 60px; }
+        .date-picker-trigger { min-height: 56px; font-size: 15px; }
+        .date-picker-popover { padding: 14px; }
+        .days { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 16px; }
+        .day-card { min-height: 0; padding: 24px; border-radius: 16px; }
+        .map-list { margin-top: 25px; }
+        .map-name { padding: 11px 0; font-size: 29px; }
+        .schedule { margin-top: 14px; border-radius: 16px; }
+        .schedule-head { padding: 20px 22px 16px; }
+        .schedule-item { grid-template-columns: 52px minmax(0, 1fr); gap: 8px; min-height: 50px; padding: 10px 22px; }
+        .schedule-maps { font-size: 14px; }
+        .highlight-settings { margin-top: 14px; padding: 20px 22px 22px; border-radius: 16px; }
+        .highlight-head { align-items: start; }
+        .highlight-copy p { line-height: 1.45; }
+        .highlight-chip { min-height: 44px; padding-inline: 12px; font-size: 13px; }
+        footer { text-align: left; }
+      }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="header">
+        <h1>《胜者为王》地图</h1>
+        <div class="date-control" aria-label="切换地图日期">
+          <button id="previous-day" type="button" aria-label="前一天">←</button>
+          <div class="date-picker">
+            <button id="date-picker-trigger" class="date-picker-trigger" type="button" aria-expanded="false" aria-controls="date-picker-popover">
+              <span id="selected-date">2026 年 8 月 26 日</span>
+              <svg class="calendar-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15.5" rx="2"></rect><path d="M7.5 3.5v3M16.5 3.5v3M3.5 9.5h17"></path></svg>
+            </button>
+            <div id="date-picker-popover" class="date-picker-popover" role="dialog" aria-label="选择地图日期" hidden>
+              <div id="calendar"></div>
+            </div>
+          </div>
+          <button id="next-day" type="button" aria-label="后一天">→</button>
+        </div>
+      </header>
+
+      <section class="days" aria-live="polite">
+        <article class="day-card">
+          <div class="day-meta">
+            <p class="day-name">今天</p>
+            <time class="day-date" id="today-date" datetime="2026-08-26">8 月 26 日 · 周三</time>
+          </div>
+          <div class="map-list" id="today-maps">
+            <div class="map-name" data-map="堑壕战">堑壕战</div><div class="map-name" data-map="临界点">临界点</div><div class="map-name" data-map="乌姆斯运河">乌姆斯运河</div>
+          </div>
+        </article>
+        <article class="day-card tomorrow">
+          <div class="day-meta">
+            <p class="day-name">明天</p>
+            <time class="day-date" id="tomorrow-date" datetime="2026-08-27">8 月 27 日 · 周四</time>
+          </div>
+          <div class="map-list" id="tomorrow-maps">
+            <div class="map-name" data-map="烬区">烬区</div><div class="map-name" data-map="攀升">攀升</div><div class="map-name" data-map="断层">断层</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="schedule" aria-labelledby="schedule-title">
+        <header class="schedule-head">
+          <h2 id="schedule-title">排期</h2>
+          <p>8/26–9/3</p>
+        </header>
+        <ol class="schedule-list">
+          <li class="schedule-item" data-date="2026-08-26"><time class="schedule-date" datetime="2026-08-26">8/26</time><span class="schedule-maps"><span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="乌姆斯运河">乌姆斯运河</span></span></li>
+          <li class="schedule-item" data-date="2026-08-27"><time class="schedule-date" datetime="2026-08-27">8/27</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断层">断层</span></span></li>
+          <li class="schedule-item" data-date="2026-08-28"><time class="schedule-date" datetime="2026-08-28">8/28</time><span class="schedule-maps"><span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="余震">余震</span></span></li>
+          <li class="schedule-item" data-date="2026-08-29"><time class="schedule-date" datetime="2026-08-29">8/29</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="克劳狄斗兽场">克劳狄斗兽场</span></span></li>
+          <li class="schedule-item" data-date="2026-08-30"><time class="schedule-date" datetime="2026-08-30">8/30</time><span class="schedule-maps"><span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="风暴眼">风暴眼</span></span></li>
+          <li class="schedule-item" data-date="2026-08-31"><time class="schedule-date" datetime="2026-08-31">8/31</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断轨">断轨</span></span></li>
+          <li class="schedule-item" data-date="2026-09-01"><time class="schedule-date" datetime="2026-09-01">9/1</time><span class="schedule-maps"><span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="金字塔">金字塔</span></span></li>
+          <li class="schedule-item" data-date="2026-09-02"><time class="schedule-date" datetime="2026-09-02">9/2</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="乌姆斯运河">乌姆斯运河</span></span></li>
+          <li class="schedule-item" data-date="2026-09-03"><time class="schedule-date" datetime="2026-09-03">9/3</time><span class="schedule-maps"><span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="断层">断层</span></span></li>
+        </ol>
+      </section>
+      <section class="highlight-settings" aria-labelledby="highlight-title">
+        <div class="highlight-head">
+          <div class="highlight-copy">
+            <h2 id="highlight-title">高亮地图</h2>
+            <p>多选后会在当天、明天与排期中标出。</p>
+          </div>
+          <button id="clear-highlights" class="clear-highlights" type="button" hidden>清除</button>
+        </div>
+        <div id="highlight-controls" class="highlight-chips" aria-label="选择要高亮的地图"></div>
+      </section>
+      <footer>juns.page / delta</footer>
+    </main>
+
+    <script type="module">
+      import { Calendar } from "./vendor/vanilla-calendar-pro/index.mjs";
+
+      (() => {
+        const firstDate = new Date(2026, 7, 26);
+        const lastDate = new Date(2026, 8, 3);
+        const mapPairs = [["堑壕战", "临界点"], ["烬区", "攀升"]];
+        const thirdMaps = ["乌姆斯运河", "断层", "余震", "克劳狄斗兽场", "风暴眼", "断轨", "金字塔"];
+        const allMaps = [...new Set([...mapPairs.flat(), ...thirdMaps])];
+        const storageKey = "delta-map-highlights-v1";
+        const header = document.querySelector(".header");
+        const datePicker = document.querySelector(".date-picker");
+        const datePickerTrigger = document.querySelector("#date-picker-trigger");
+        const datePickerPopover = document.querySelector("#date-picker-popover");
+        const selectedDate = document.querySelector("#selected-date");
+        const calendarElement = document.querySelector("#calendar");
+        const todayDate = document.querySelector("#today-date");
+        const tomorrowDate = document.querySelector("#tomorrow-date");
+        const todayMaps = document.querySelector("#today-maps");
+        const tomorrowMaps = document.querySelector("#tomorrow-maps");
+        const previousButton = document.querySelector("#previous-day");
+        const nextButton = document.querySelector("#next-day");
+        const scheduleItems = [...document.querySelectorAll(".schedule-item")];
+        const highlightControls = document.querySelector("#highlight-controls");
+        const clearHighlightsButton = document.querySelector("#clear-highlights");
+        let highlightedMaps = new Set();
+        const dayMs = 86400000;
+        const mod = (number, base) => ((number % base) + base) % base;
+        const startOfDay = date => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const iso = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+        const fullFormatter = new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "short" });
+        const shortFormatter = new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric", weekday: "short" });
+        let currentDate = startOfDay(new Date());
+
+        if (currentDate < firstDate || currentDate > lastDate) currentDate = firstDate;
+
+        try {
+          const savedHighlights = JSON.parse(localStorage.getItem(storageKey) || "[]");
+          highlightedMaps = new Set(savedHighlights.filter(map => allMaps.includes(map)));
+        } catch {
+          highlightedMaps = new Set();
+        }
+
+        function mapsFor(date) {
+          const offset = Math.round((startOfDay(date) - firstDate) / dayMs);
+          return [...mapPairs[mod(offset, 2)], thirdMaps[mod(offset, 7)]];
+        }
+
+        function writeMaps(target, maps) {
+          target.replaceChildren(...maps.map(map => {
+            const line = document.createElement("div");
+            line.className = "map-name";
+            line.dataset.map = map;
+            const label = document.createElement("span");
+            label.textContent = map;
+            line.append(label);
+            return line;
+          }));
+        }
+
+        function persistHighlights() {
+          try {
+            localStorage.setItem(storageKey, JSON.stringify([...highlightedMaps]));
+          } catch {
+            // The page still works when storage is unavailable (for example, private browsing).
+          }
+        }
+
+        function applyHighlights() {
+          document.querySelectorAll("[data-map]").forEach(element => {
+            element.classList.toggle("is-highlighted", highlightedMaps.has(element.dataset.map));
+          });
+          highlightControls.querySelectorAll("[data-highlight-map]").forEach(button => {
+            button.setAttribute("aria-pressed", String(highlightedMaps.has(button.dataset.highlightMap)));
+          });
+          clearHighlightsButton.hidden = highlightedMaps.size === 0;
+        }
+
+        function buildHighlightControls() {
+          allMaps.forEach(map => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "highlight-chip";
+            button.dataset.highlightMap = map;
+            button.textContent = map;
+            button.addEventListener("click", () => {
+              if (highlightedMaps.has(map)) highlightedMaps.delete(map);
+              else highlightedMaps.add(map);
+              persistHighlights();
+              applyHighlights();
+            });
+            highlightControls.append(button);
+          });
+        }
+
+        function setDatePickerOpen(isOpen) {
+          if (isOpen) syncCalendar();
+          datePickerPopover.hidden = !isOpen;
+          datePickerTrigger.setAttribute("aria-expanded", String(isOpen));
+          header.classList.toggle("date-picker-open", isOpen);
+        }
+
+        function syncCalendar() {
+          calendar.set({
+            selectedDates: [iso(currentDate)],
+            selectedMonth: currentDate.getMonth(),
+            selectedYear: currentDate.getFullYear(),
+          });
+        }
+
+        function update(syncDatePicker = true) {
+          const tomorrow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+          const key = iso(currentDate);
+          selectedDate.textContent = fullFormatter.format(currentDate);
+          datePickerTrigger.setAttribute("aria-label", `选择地图日期，当前为${fullFormatter.format(currentDate)}`);
+          if (syncDatePicker) syncCalendar();
+          todayDate.dateTime = key;
+          todayDate.textContent = shortFormatter.format(currentDate);
+          tomorrowDate.dateTime = iso(tomorrow);
+          tomorrowDate.textContent = shortFormatter.format(tomorrow);
+          writeMaps(todayMaps, mapsFor(currentDate));
+          writeMaps(tomorrowMaps, mapsFor(tomorrow));
+          previousButton.disabled = currentDate <= firstDate;
+          nextButton.disabled = currentDate >= lastDate;
+          scheduleItems.forEach(item => item.classList.toggle("is-selected", item.dataset.date === key));
+          applyHighlights();
+        }
+
+        const calendar = new Calendar(calendarElement, {
+          locale: "zh-CN",
+          firstWeekday: 1,
+          dateMin: iso(firstDate),
+          dateMax: iso(lastDate),
+          selectionDatesMode: "single",
+          enableDateToggle: false,
+          selectedDates: [iso(currentDate)],
+          selectedMonth: currentDate.getMonth(),
+          selectedYear: currentDate.getFullYear(),
+          selectedTheme: "system",
+          labels: {
+            application: "日期选择器",
+            navigation: "日历导航",
+            arrowPrev: { month: "上个月" },
+            arrowNext: { month: "下个月" },
+            month: "选择月份",
+            year: "选择年份",
+            week: "星期",
+            dates: "选择日期",
+          },
+          onClickDate(self) {
+            const dateValue = self.context.selectedDates[0];
+            if (!dateValue) return;
+            const [year, month, day] = dateValue.split("-").map(Number);
+            currentDate = new Date(year, month - 1, day);
+            update(false);
+            setDatePickerOpen(false);
+            datePickerTrigger.focus();
+          },
+        });
+        calendar.init();
+
+        previousButton.addEventListener("click", () => {
+          if (currentDate > firstDate) {
+            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1);
+            update();
+          }
+        });
+        nextButton.addEventListener("click", () => {
+          if (currentDate < lastDate) {
+            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+            update();
+          }
+        });
+        datePickerTrigger.addEventListener("click", () => {
+          setDatePickerOpen(datePickerPopover.hidden);
+        });
+        document.addEventListener("pointerdown", event => {
+          if (!datePickerPopover.hidden && !datePicker.contains(event.target)) setDatePickerOpen(false);
+        });
+        document.addEventListener("keydown", event => {
+          if (event.key === "Escape" && !datePickerPopover.hidden) {
+            setDatePickerOpen(false);
+            datePickerTrigger.focus();
+          }
+        });
+        clearHighlightsButton.addEventListener("click", () => {
+          highlightedMaps.clear();
+          persistHighlights();
+          applyHighlights();
+        });
+        buildHighlightControls();
+        update();
+      })();
+    </script>
+  </body>
+</html>
