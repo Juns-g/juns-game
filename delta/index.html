@@ -240,7 +240,7 @@
             <time class="day-date" id="today-date" datetime="2026-09-04">9 月 4 日 · 周五</time>
           </div>
           <div class="map-list" id="today-maps">
-            <div class="map-name" data-map="烬区">烬区</div><div class="map-name" data-map="强化战">强化战</div><div class="map-name" data-map="断轨">断轨</div>
+            <div class="map-name" data-map="烬区">烬区</div><div class="map-name" data-map="堑壕战">堑壕战</div><div class="map-name" data-map="断轨">断轨</div>
           </div>
         </article>
         <article class="day-card tomorrow">
@@ -260,7 +260,7 @@
           <p>已确认记录</p>
         </header>
         <ol class="schedule-list">
-          <li class="schedule-item" data-date="2026-09-04"><time class="schedule-date" datetime="2026-09-04">9/4</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="强化战">强化战</span> · <span class="schedule-map" data-map="断轨">断轨</span></span></li>
+          <li class="schedule-item" data-date="2026-09-04"><time class="schedule-date" datetime="2026-09-04">9/4</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="断轨">断轨</span></span></li>
           <li class="schedule-item" data-date="2026-09-05"><time class="schedule-date" datetime="2026-09-05">9/5</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断层">断层</span></span></li>
         </ol>
       </section>
@@ -284,7 +284,7 @@
         const firstDate = new Date(2026, 8, 4);
         const lastDate = new Date(2026, 8, 5);
         const confirmedMaps = {
-          "2026-09-04": ["烬区", "强化战", "断轨"],
+          "2026-09-04": ["烬区", "堑壕战", "断轨"],
           "2026-09-05": ["临界点", "攀升", "断层"],
         };
         const allMaps = [...new Set(Object.values(confirmedMaps).flat())];
