@@ -1,6 +1,6 @@
 {
   "page": "《胜者为王》地图",
-  "updatedAt": "2026-09-05",
+  "updatedAt": "2026-09-06",
   "retiredRotation": {
     "status": "retired",
     "confirmedRange": {
@@ -33,12 +33,26 @@
     }
   },
   "currentRotation": {
-    "status": "collecting",
-    "rule": null,
+    "status": "partial-rule",
+    "rule": {
+      "firstTwoMaps": {
+        "type": "daily-alternation",
+        "sequence": [
+          ["烬区", "堑壕战"],
+          ["临界点", "攀升"]
+        ]
+      },
+      "thirdMap": {
+        "type": "undetermined",
+        "pool": ["断轨", "断层", "风暴眼", "克劳狄斗兽场", "乌姆斯运河", "余震", "金字塔"],
+        "sequence": null
+      }
+    },
     "records": {
       "2026-09-04": ["烬区", "堑壕战", "断轨"],
       "2026-09-05": ["临界点", "攀升", "断层"],
-      "2026-09-06": ["烬区", "堑壕战", "风暴眼"]
+      "2026-09-06": ["烬区", "堑壕战", "风暴眼"],
+      "2026-09-07": ["临界点", "攀升", "克劳狄斗兽场"]
     }
   }
 }

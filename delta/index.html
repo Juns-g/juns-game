@@ -165,12 +165,14 @@
       .map-name > span { display: inline-block; }
       .map-name:last-child { border-bottom: 1px solid var(--line); }
       .map-name.is-highlighted > span { margin-inline: -10px; padding: 4px 10px 5px; border: 1px solid color-mix(in srgb, var(--highlight) 64%, var(--line)); border-radius: 10px; background: var(--highlight-wash); box-shadow: inset 0 1px rgba(255, 255, 255, .05); color: var(--highlight); }
+      .map-name[data-map="？"] > span { color: var(--faint); }
+      .schedule-map[data-map="？"] { color: var(--faint); font-weight: 500; }
       .schedule { min-width: 0; margin-top: 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
       .schedule-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 23px 28px 19px; }
       h2 { margin: 0; font-size: 20px; font-weight: 680; letter-spacing: -.04em; }
       .schedule-head p { margin: 0; color: var(--muted); font-size: 13px; }
       .schedule-list { margin: 0; padding: 0; list-style: none; }
-      .schedule-item { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: center; min-height: 53px; padding: 10px 28px; border-top: 1px solid var(--line); }
+      .schedule-item { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: center; min-height: 53px; padding: 10px 28px; border-top: 1px solid var(--line); cursor: pointer; }
       .schedule-item.is-selected { background: linear-gradient(90deg, var(--blue-wash), transparent 65%); }
       .schedule-date { color: var(--muted); font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace; font-size: 13px; font-weight: 600; }
       .schedule-maps { min-width: 0; color: var(--ink); font-size: 15px; font-weight: 600; letter-spacing: -.015em; line-height: 1.45; }
@@ -222,7 +224,7 @@
           <button id="previous-day" type="button" aria-label="前一天">←</button>
           <div class="date-picker">
             <button id="date-picker-trigger" class="date-picker-trigger" type="button" aria-expanded="false" aria-controls="date-picker-popover">
-              <span id="selected-date">2026 年 9 月 4 日</span>
+              <span id="selected-date">2026 年 9 月 6 日</span>
               <svg class="calendar-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15.5" rx="2"></rect><path d="M7.5 3.5v3M16.5 3.5v3M3.5 9.5h17"></path></svg>
             </button>
             <div id="date-picker-popover" class="date-picker-popover" role="dialog" aria-label="选择地图日期" hidden>
@@ -237,19 +239,19 @@
         <article class="day-card">
           <div class="day-meta">
             <p class="day-name">今天</p>
-            <time class="day-date" id="today-date" datetime="2026-09-04">9 月 4 日 · 周五</time>
+            <time class="day-date" id="today-date" datetime="2026-09-06">9 月 6 日 · 周日</time>
           </div>
           <div class="map-list" id="today-maps">
-            <div class="map-name" data-map="烬区">烬区</div><div class="map-name" data-map="堑壕战">堑壕战</div><div class="map-name" data-map="断轨">断轨</div>
+            <div class="map-name" data-map="烬区">烬区</div><div class="map-name" data-map="堑壕战">堑壕战</div><div class="map-name" data-map="风暴眼">风暴眼</div>
           </div>
         </article>
         <article class="day-card tomorrow">
           <div class="day-meta">
             <p class="day-name">明天</p>
-            <time class="day-date" id="tomorrow-date" datetime="2026-09-05">9 月 5 日 · 周六</time>
+            <time class="day-date" id="tomorrow-date" datetime="2026-09-07">9 月 7 日 · 周一</time>
           </div>
           <div class="map-list" id="tomorrow-maps">
-            <div class="map-name" data-map="临界点">临界点</div><div class="map-name" data-map="攀升">攀升</div><div class="map-name" data-map="断层">断层</div>
+            <div class="map-name" data-map="临界点">临界点</div><div class="map-name" data-map="攀升">攀升</div><div class="map-name" data-map="克劳狄斗兽场">克劳狄斗兽场</div>
           </div>
         </article>
       </section>
@@ -257,12 +259,23 @@
       <section class="schedule" aria-labelledby="schedule-title">
         <header class="schedule-head">
           <h2 id="schedule-title">排期</h2>
-          <p>已确认记录</p>
+          <p>9/4–9/17 · 后续第三图待定</p>
         </header>
         <ol class="schedule-list">
           <li class="schedule-item" data-date="2026-09-04"><time class="schedule-date" datetime="2026-09-04">9/4</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="断轨">断轨</span></span></li>
           <li class="schedule-item" data-date="2026-09-05"><time class="schedule-date" datetime="2026-09-05">9/5</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断层">断层</span></span></li>
           <li class="schedule-item" data-date="2026-09-06"><time class="schedule-date" datetime="2026-09-06">9/6</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="风暴眼">风暴眼</span></span></li>
+          <li class="schedule-item" data-date="2026-09-07"><time class="schedule-date" datetime="2026-09-07">9/7</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="克劳狄斗兽场">克劳狄斗兽场</span></span></li>
+          <li class="schedule-item" data-date="2026-09-08"><time class="schedule-date" datetime="2026-09-08">9/8</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-09"><time class="schedule-date" datetime="2026-09-09">9/9</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-10"><time class="schedule-date" datetime="2026-09-10">9/10</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-11"><time class="schedule-date" datetime="2026-09-11">9/11</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-12"><time class="schedule-date" datetime="2026-09-12">9/12</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-13"><time class="schedule-date" datetime="2026-09-13">9/13</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-14"><time class="schedule-date" datetime="2026-09-14">9/14</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-15"><time class="schedule-date" datetime="2026-09-15">9/15</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-16"><time class="schedule-date" datetime="2026-09-16">9/16</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="？">？</span></span></li>
+          <li class="schedule-item" data-date="2026-09-17"><time class="schedule-date" datetime="2026-09-17">9/17</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="？">？</span></span></li>
         </ol>
       </section>
       <section class="highlight-settings" aria-labelledby="highlight-title">
@@ -283,13 +296,18 @@
 
       (() => {
         const firstDate = new Date(2026, 8, 4);
-        const lastDate = new Date(2026, 8, 6);
+        const lastDate = new Date(2026, 8, 17);
+        const dayMs = 86400000;
+        const mod = (number, base) => ((number % base) + base) % base;
+        const mapPairs = [["烬区", "堑壕战"], ["临界点", "攀升"]];
+        const thirdMaps = ["断轨", "断层", "风暴眼", "克劳狄斗兽场", "乌姆斯运河", "余震", "金字塔"];
         const confirmedMaps = {
           "2026-09-04": ["烬区", "堑壕战", "断轨"],
           "2026-09-05": ["临界点", "攀升", "断层"],
           "2026-09-06": ["烬区", "堑壕战", "风暴眼"],
+          "2026-09-07": ["临界点", "攀升", "克劳狄斗兽场"],
         };
-        const allMaps = [...new Set(Object.values(confirmedMaps).flat())];
+        const allMaps = [...new Set([...mapPairs.flat(), ...thirdMaps])];
         const storageKey = "delta-map-highlights-v1";
         const header = document.querySelector(".header");
         const datePicker = document.querySelector(".date-picker");
@@ -314,7 +332,7 @@
         const shortFormatter = new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric", weekday: "short" });
         let currentDate = startOfDay(new Date());
 
-        if (currentDate < firstDate || currentDate > lastDate) currentDate = firstDate;
+        if (currentDate < firstDate || currentDate > lastDate) currentDate = new Date(2026, 8, 6);
 
         try {
           const savedHighlights = JSON.parse(localStorage.getItem(storageKey) || "[]");
@@ -324,8 +342,15 @@
         }
 
         function mapsFor(date) {
-          const confirmed = confirmedMaps[iso(date)];
-          return confirmed ? [...confirmed] : [];
+          const key = iso(date);
+          if (confirmedMaps[key]) {
+            return [...confirmedMaps[key]];
+          }
+          const day = startOfDay(date);
+          if (day < firstDate || day > lastDate) return [];
+          const offset = Math.round((day - firstDate) / dayMs);
+          const pair = mapPairs[mod(offset, 2)];
+          return [...pair, "？"];
         }
 
         function writeMaps(target, maps) {
@@ -471,6 +496,13 @@
           highlightedMaps.clear();
           persistHighlights();
           applyHighlights();
+        });
+        scheduleItems.forEach(item => {
+          item.addEventListener("click", () => {
+            const [year, month, day] = item.dataset.date.split("-").map(Number);
+            currentDate = new Date(year, month - 1, day);
+            update();
+          });
         });
         buildHighlightControls();
         update();
