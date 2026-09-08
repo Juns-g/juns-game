@@ -34,6 +34,12 @@
   },
   "currentRotation": {
     "status": "confirmed",
+    "season": {
+      "name": "S10",
+      "startDate": "2026-09-04",
+      "durationDays": 62,
+      "endDate": "2026-11-04"
+    },
     "rule": {
       "firstTwoMaps": {
         "type": "daily-alternation",

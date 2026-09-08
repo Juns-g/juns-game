@@ -172,9 +172,10 @@
       h2 { margin: 0; font-size: 20px; font-weight: 680; letter-spacing: -.04em; }
       .schedule-head p { margin: 0; color: var(--muted); font-size: 13px; }
       .schedule-list { margin: 0; padding: 0; list-style: none; }
-      .schedule-item { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: center; min-height: 53px; padding: 10px 28px; border-top: 1px solid var(--line); cursor: pointer; }
+      .schedule-item { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 14px; align-items: center; min-height: 53px; padding: 10px 28px; border-top: 1px solid var(--line); cursor: pointer; }
       .schedule-item.is-selected { background: linear-gradient(90deg, var(--blue-wash), transparent 65%); }
-      .schedule-date { color: var(--muted); font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace; font-size: 13px; font-weight: 600; }
+      .schedule-date { display: inline-flex; align-items: baseline; gap: 6px; color: var(--muted); font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace; font-size: 13px; font-weight: 600; white-space: nowrap; }
+      .schedule-weekday { font-size: 12px; font-weight: 500; color: var(--faint); }
       .schedule-maps { min-width: 0; color: var(--ink); font-size: 15px; font-weight: 600; letter-spacing: -.015em; line-height: 1.45; }
       .schedule-map.is-highlighted { padding: 2px 3px; border-radius: 5px; background: var(--highlight-wash); color: var(--highlight); }
       .highlight-settings { margin-top: 20px; padding: 22px 28px 25px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
@@ -205,7 +206,7 @@
         .map-name { padding: 11px 0; font-size: 29px; }
         .schedule { margin-top: 14px; border-radius: 16px; }
         .schedule-head { padding: 20px 22px 16px; }
-        .schedule-item { grid-template-columns: 52px minmax(0, 1fr); gap: 8px; min-height: 50px; padding: 10px 22px; }
+        .schedule-item { grid-template-columns: 82px minmax(0, 1fr); gap: 10px; min-height: 50px; padding: 10px 20px; }
         .schedule-maps { font-size: 14px; }
         .highlight-settings { margin-top: 14px; padding: 20px 22px 22px; border-radius: 16px; }
         .highlight-head { align-items: start; }
@@ -262,13 +263,13 @@
           <p id="schedule-subtitle">9/8–9/14 · 7 日排期</p>
         </header>
         <ol class="schedule-list" id="schedule-list">
-          <li class="schedule-item" data-date="2026-09-08"><time class="schedule-date" datetime="2026-09-08">9/8</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="金字塔">金字塔</span></span></li>
-          <li class="schedule-item" data-date="2026-09-09"><time class="schedule-date" datetime="2026-09-09">9/9</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="余震">余震</span></span></li>
-          <li class="schedule-item" data-date="2026-09-10"><time class="schedule-date" datetime="2026-09-10">9/10</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="乌姆斯运河">乌姆斯运河</span></span></li>
-          <li class="schedule-item" data-date="2026-09-11"><time class="schedule-date" datetime="2026-09-11">9/11</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断轨">断轨</span></span></li>
-          <li class="schedule-item" data-date="2026-09-12"><time class="schedule-date" datetime="2026-09-12">9/12</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="断层">断层</span></span></li>
-          <li class="schedule-item" data-date="2026-09-13"><time class="schedule-date" datetime="2026-09-13">9/13</time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="风暴眼">风暴眼</span></span></li>
-          <li class="schedule-item" data-date="2026-09-14"><time class="schedule-date" datetime="2026-09-14">9/14</time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="克劳狄斗兽场">克劳狄斗兽场</span></span></li>
+          <li class="schedule-item" data-date="2026-09-08"><time class="schedule-date" datetime="2026-09-08"><span class="schedule-day">9/8</span><span class="schedule-weekday">周二</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="金字塔">金字塔</span></span></li>
+          <li class="schedule-item" data-date="2026-09-09"><time class="schedule-date" datetime="2026-09-09"><span class="schedule-day">9/9</span><span class="schedule-weekday">周三</span></time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="余震">余震</span></span></li>
+          <li class="schedule-item" data-date="2026-09-10"><time class="schedule-date" datetime="2026-09-10"><span class="schedule-day">9/10</span><span class="schedule-weekday">周四</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="乌姆斯运河">乌姆斯运河</span></span></li>
+          <li class="schedule-item" data-date="2026-09-11"><time class="schedule-date" datetime="2026-09-11"><span class="schedule-day">9/11</span><span class="schedule-weekday">周五</span></time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断轨">断轨</span></span></li>
+          <li class="schedule-item" data-date="2026-09-12"><time class="schedule-date" datetime="2026-09-12"><span class="schedule-day">9/12</span><span class="schedule-weekday">周六</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="断层">断层</span></span></li>
+          <li class="schedule-item" data-date="2026-09-13"><time class="schedule-date" datetime="2026-09-13"><span class="schedule-day">9/13</span><span class="schedule-weekday">周日</span></time><span class="schedule-maps"><span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="风暴眼">风暴眼</span></span></li>
+          <li class="schedule-item" data-date="2026-09-14"><time class="schedule-date" datetime="2026-09-14"><span class="schedule-day">9/14</span><span class="schedule-weekday">周一</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="克劳狄斗兽场">克劳狄斗兽场</span></span></li>
         </ol>
       </section>
       <section class="highlight-settings" aria-labelledby="highlight-title">
@@ -317,12 +318,15 @@
         const iso = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
         const fullFormatter = new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "short" });
         const shortFormatter = new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric", weekday: "short" });
+        const weekdayFormatter = new Intl.DateTimeFormat("zh-CN", { weekday: "short" });
+
+        const SEASON_START = new Date(2026, 8, 4);
+        const SEASON_DAYS = 62;
+        const SEASON_END = new Date(SEASON_START.getTime() + (SEASON_DAYS - 1) * dayMs);
 
         const SCHEDULE_DAYS = 7;
         let today = startOfDay(new Date());
-        if (today < cycleStartDate) today = new Date(2026, 8, 8);
-        const firstDate = today;
-        const lastDate = new Date(today.getTime() + (SCHEDULE_DAYS - 1) * dayMs);
+        if (today < SEASON_START || today > SEASON_END) today = new Date(2026, 8, 8);
         let currentDate = today;
 
         try {
@@ -334,7 +338,7 @@
 
         function mapsFor(date) {
           const day = startOfDay(date);
-          const offset = Math.round((day - cycleStartDate) / dayMs);
+          const offset = Math.round((day - SEASON_START) / dayMs);
           const pair = mapPairs[mod(offset, 2)];
           const third = thirdCycle[mod(offset, 7)];
           return [...pair, third];
@@ -353,20 +357,39 @@
         }
 
         function renderSchedule() {
+          const scheduleStart = currentDate;
+          const remainingDays = Math.max(1, Math.round((SEASON_END - scheduleStart) / dayMs) + 1);
+          const count = Math.min(SCHEDULE_DAYS, remainingDays);
+          const scheduleEnd = new Date(scheduleStart.getTime() + (count - 1) * dayMs);
           if (scheduleSubtitle) {
-            scheduleSubtitle.textContent = `${firstDate.getMonth() + 1}/${firstDate.getDate()}–${lastDate.getMonth() + 1}/${lastDate.getDate()} · 7 日排期`;
+            scheduleSubtitle.textContent = count > 1
+              ? `${scheduleStart.getMonth() + 1}/${scheduleStart.getDate()}–${scheduleEnd.getMonth() + 1}/${scheduleEnd.getDate()} · ${count} 日排期`
+              : `${scheduleStart.getMonth() + 1}/${scheduleStart.getDate()} · 赛季末日`;
           }
-          scheduleList.replaceChildren(...Array.from({ length: SCHEDULE_DAYS }, (_, i) => {
-            const date = new Date(firstDate.getTime() + i * dayMs);
+          const selectedKey = iso(currentDate);
+          scheduleList.replaceChildren(...Array.from({ length: count }, (_, i) => {
+            const date = new Date(scheduleStart.getTime() + i * dayMs);
             const dateKey = iso(date);
             const li = document.createElement("li");
             li.className = "schedule-item";
+            if (dateKey === selectedKey) {
+              li.classList.add("is-selected");
+            }
             li.dataset.date = dateKey;
 
             const time = document.createElement("time");
             time.className = "schedule-date";
             time.dateTime = dateKey;
-            time.textContent = `${date.getMonth() + 1}/${date.getDate()}`;
+
+            const daySpan = document.createElement("span");
+            daySpan.className = "schedule-day";
+            daySpan.textContent = `${date.getMonth() + 1}/${date.getDate()}`;
+
+            const weekdaySpan = document.createElement("span");
+            weekdaySpan.className = "schedule-weekday";
+            weekdaySpan.textContent = weekdayFormatter.format(date);
+
+            time.append(daySpan, weekdaySpan);
 
             const mapsSpan = document.createElement("span");
             mapsSpan.className = "schedule-maps";
@@ -455,19 +478,17 @@
           const tomorrowMapList = mapsFor(tomorrow);
           tomorrowCard.hidden = tomorrowMapList.length === 0;
           writeMaps(tomorrowMaps, tomorrowMapList);
-          previousButton.disabled = currentDate <= firstDate;
-          nextButton.disabled = currentDate >= lastDate;
-          scheduleList.querySelectorAll(".schedule-item").forEach(item => {
-            item.classList.toggle("is-selected", item.dataset.date === key);
-          });
+          previousButton.disabled = currentDate <= SEASON_START;
+          nextButton.disabled = currentDate >= SEASON_END;
+          renderSchedule();
           applyHighlights();
         }
 
         const calendar = new Calendar(calendarElement, {
           locale: "zh-CN",
           firstWeekday: 1,
-          dateMin: iso(firstDate),
-          dateMax: iso(lastDate),
+          dateMin: iso(SEASON_START),
+          dateMax: iso(SEASON_END),
           selectionDatesMode: "single",
           enableDateToggle: false,
           selectedDates: [iso(currentDate)],
@@ -497,13 +518,13 @@
         calendar.init();
 
         previousButton.addEventListener("click", () => {
-          if (currentDate > firstDate) {
+          if (currentDate > SEASON_START) {
             currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1);
             update();
           }
         });
         nextButton.addEventListener("click", () => {
-          if (currentDate < lastDate) {
+          if (currentDate < SEASON_END) {
             currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
             update();
           }
@@ -525,7 +546,6 @@
           persistHighlights();
           applyHighlights();
         });
-        renderSchedule();
         buildHighlightControls();
         update();
       })();
