@@ -116,7 +116,7 @@
     "ruleNote": "仅有两个已观察日期，不足以推断轮换规律；不预测 2026-11-06 之后的地图。",
     "observations": {
       "2026-11-05": [
-        { "name": null, "status": "unknown", "note": "首张地图名称被截图裁切" },
+        { "name": "烬区", "source": "user-confirmation" },
         { "name": "堑壕战" },
         { "name": "天际港", "mode": "纪实" }
       ],

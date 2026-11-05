@@ -251,7 +251,7 @@
             <time class="day-date" id="today-date" datetime="2026-11-05">11 月 5 日 · 周四</time>
           </div>
           <div class="map-list" id="today-maps">
-            <div class="map-name" data-map="？"><span>待确认</span><small class="map-note">首张地图名称被截图裁切</small></div><div class="map-name" data-map="堑壕战"><span>堑壕战</span></div><div class="map-name" data-map="天际港"><span>天际港<small class="map-mode">纪实</small></span></div>
+            <div class="map-name" data-map="烬区"><span>烬区</span></div><div class="map-name" data-map="堑壕战"><span>堑壕战</span></div><div class="map-name" data-map="天际港"><span>天际港<small class="map-mode">纪实</small></span></div>
           </div>
         </article>
         <article class="day-card tomorrow">
@@ -271,7 +271,7 @@
           <p id="schedule-subtitle">11/5–11/6 · 2 日排期</p>
         </header>
         <ol class="schedule-list" id="schedule-list">
-          <li class="schedule-item is-selected" data-date="2026-11-05"><time class="schedule-date" datetime="2026-11-05"><span class="schedule-day">11/5</span><span class="schedule-weekday">周四</span></time><span class="schedule-maps"><span class="schedule-map" data-map="？" title="首张地图名称被截图裁切">待确认</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="天际港">天际港<small class="map-mode">纪实</small></span></span></li>
+          <li class="schedule-item is-selected" data-date="2026-11-05"><time class="schedule-date" datetime="2026-11-05"><span class="schedule-day">11/5</span><span class="schedule-weekday">周四</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="堑壕战">堑壕战</span> · <span class="schedule-map" data-map="天际港">天际港<small class="map-mode">纪实</small></span></span></li>
           <li class="schedule-item" data-date="2026-11-06"><time class="schedule-date" datetime="2026-11-06"><span class="schedule-day">11/6</span><span class="schedule-weekday">周五</span></time><span class="schedule-maps"><span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="临界点">临界点</span> · <span class="schedule-map" data-map="摩格旧城区">摩格旧城区<small class="map-mode">纪实</small></span></span></li>
         </ol>
       </section>
@@ -299,10 +299,10 @@
         const legacyMapPairs = [["烬区", "堑壕战"], ["临界点", "攀升"]];
         const thirdCycle7 = ["断轨", "断层", "风暴眼", "克劳狄斗兽场", "金字塔", "余震", "乌姆斯运河"];
         const thirdCycle8 = ["摩格旧城区", "金字塔", "余震", "乌姆斯运河", "断轨", "断层", "风暴眼", "克劳狄斗兽场"];
-        // 新赛季仅有截图核实的逐日记录：规律未确认，不外推。name "？" 表示名称未知（被截图裁切）。
+        // 新赛季仅有截图及用户确认的逐日记录：规律未确认，不外推。
         const observedDays = {
           "2026-11-05": [
-            { name: "？", label: "待确认", note: "首张地图名称被截图裁切" },
+            { name: "烬区" },
             { name: "堑壕战" },
             { name: "天际港", mode: "纪实" },
           ],
