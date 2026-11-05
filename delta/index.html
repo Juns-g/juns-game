@@ -173,7 +173,6 @@
       .map-note { display: block; margin-top: 2px; color: var(--faint); font-size: 12px; font-weight: 500; letter-spacing: 0; }
       .map-empty { color: var(--muted); font-size: 18px; font-weight: 600; }
       .day-card.is-empty { min-height: 0; }
-      .season-note { margin: 16px 0 0; color: var(--muted); font-size: 13px; }
       .schedule { min-width: 0; margin-top: 20px; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow); }
       .schedule-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 23px 28px 19px; }
       h2 { margin: 0; font-size: 20px; font-weight: 680; letter-spacing: -.04em; }
@@ -242,7 +241,6 @@
           <button id="next-day" type="button" aria-label="后一天">→</button>
         </div>
       </header>
-      <p class="season-note" id="season-note">新赛季轮换规律待确认，仅展示已核实日期</p>
 
       <section class="days" aria-live="polite">
         <article class="day-card">
@@ -325,7 +323,6 @@
         const todayMaps = document.querySelector("#today-maps");
         const todayCard = document.querySelector(".day-card:not(.tomorrow)");
         const tomorrowCard = document.querySelector(".day-card.tomorrow");
-        const seasonNote = document.querySelector("#season-note");
         const tomorrowMaps = document.querySelector("#tomorrow-maps");
         const previousButton = document.querySelector("#previous-day");
         const nextButton = document.querySelector("#next-day");
@@ -342,7 +339,6 @@
 
         const SEASON_START = new Date(2026, 8, 4);
         const SEASON_END = new Date(2026, 10, 4);
-        const SEASON_END_KEY = iso(SEASON_END);
         const latestObservedKey = Object.keys(observedDays).sort().pop();
         const [latestYear, latestMonth, latestDay] = latestObservedKey.split("-").map(Number);
 
@@ -535,7 +531,6 @@
           const tomorrowMapList = mapsFor(tomorrow);
           tomorrowCard.hidden = tomorrowMapList.length === 0;
           writeMaps(tomorrowMaps, tomorrowMapList);
-          seasonNote.hidden = iso(tomorrow) <= SEASON_END_KEY;
           previousButton.disabled = currentDate <= SEASON_START;
           nextButton.disabled = currentDate >= MAX_DATE;
           renderSchedule();
