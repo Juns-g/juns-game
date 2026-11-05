@@ -277,7 +277,6 @@
         <div class="highlight-head">
           <div class="highlight-copy">
             <h2 id="highlight-title">高亮地图</h2>
-            <p>多选后会在当天、明天与排期中标出。</p>
           </div>
           <button id="clear-highlights" class="clear-highlights" type="button" hidden>清除</button>
         </div>
@@ -377,13 +376,6 @@
         }
 
         function writeMaps(target, maps) {
-          if (maps.length === 0) {
-            const empty = document.createElement("div");
-            empty.className = "map-empty";
-            empty.textContent = "地图待更新";
-            target.replaceChildren(empty);
-            return;
-          }
           target.replaceChildren(...maps.map(map => {
             const line = document.createElement("div");
             line.className = "map-name";
@@ -415,7 +407,7 @@
           if (scheduleSubtitle && count > 0) {
             scheduleSubtitle.textContent = count > 1
               ? `${scheduleStart.getMonth() + 1}/${scheduleStart.getDate()}–${scheduleEnd.getMonth() + 1}/${scheduleEnd.getDate()} · ${count} 日排期`
-              : `${scheduleStart.getMonth() + 1}/${scheduleStart.getDate()} · 当前已核实`;
+              : `${scheduleStart.getMonth() + 1}/${scheduleStart.getDate()}`;
           }
           const selectedKey = iso(currentDate);
           scheduleList.replaceChildren(...dates.map(date => {
@@ -526,7 +518,7 @@
           tomorrowDate.dateTime = iso(tomorrow);
           tomorrowDate.textContent = shortFormatter.format(tomorrow);
           const todayMapList = mapsFor(currentDate);
-          todayCard.classList.toggle("is-empty", todayMapList.length === 0);
+          todayCard.hidden = todayMapList.length === 0;
           writeMaps(todayMaps, todayMapList);
           const tomorrowMapList = mapsFor(tomorrow);
           tomorrowCard.hidden = tomorrowMapList.length === 0;
