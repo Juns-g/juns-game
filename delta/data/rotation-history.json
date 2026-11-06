@@ -1,6 +1,6 @@
 {
   "page": "《胜者为王》地图",
-  "updatedAt": "2026-11-05",
+  "updatedAt": "2026-11-06",
   "retiredRotation": {
     "status": "retired",
     "confirmedRange": {
@@ -113,7 +113,7 @@
       "timezone": "UTC+08"
     },
     "rule": null,
-    "ruleNote": "仅有两个已观察日期，不足以推断轮换规律；不预测 2026-11-06 之后的地图。",
+    "ruleNote": "仅展示逐日记录，不外推后续日期。",
     "observations": {
       "2026-11-05": [
         { "name": "烬区", "source": "user-confirmation" },
@@ -124,6 +124,11 @@
         { "name": "攀升" },
         { "name": "临界点" },
         { "name": "摩格旧城区", "mode": "纪实" }
+      ],
+      "2026-11-07": [
+        { "name": "烬区", "reportedName": "禁区", "source": "user-report", "reportedAt": "2026-11-06" },
+        { "name": "金字塔", "source": "user-report" },
+        { "name": "天际港", "source": "user-report" }
       ]
     }
   }
