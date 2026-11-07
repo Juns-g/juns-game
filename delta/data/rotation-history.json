@@ -1,6 +1,6 @@
 {
   "page": "《胜者为王》地图",
-  "updatedAt": "2026-11-06",
+  "updatedAt": "2026-11-07",
   "retiredRotation": {
     "status": "retired",
     "confirmedRange": {
@@ -129,6 +129,11 @@
         { "name": "烬区", "reportedName": "禁区", "source": "user-report", "reportedAt": "2026-11-06" },
         { "name": "金字塔", "source": "user-report" },
         { "name": "天际港", "source": "user-report" }
+      ],
+      "2026-11-08": [
+        { "name": "攀升", "source": "user-report", "reportedAt": "2026-11-07" },
+        { "name": "克劳狄斗兽场", "reportedName": "斗兽场", "source": "user-report" },
+        { "name": "摩格旧城区", "reportedName": "旧城区", "source": "user-report" }
       ]
     }
   }
