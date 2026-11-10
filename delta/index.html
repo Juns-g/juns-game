@@ -231,7 +231,7 @@
           <button id="previous-day" type="button" aria-label="前一天">←</button>
           <div class="date-picker">
             <button id="date-picker-trigger" class="date-picker-trigger" type="button" aria-expanded="false" aria-controls="date-picker-popover">
-              <span id="selected-date">2026 年 11 月 9 日</span>
+              <span id="selected-date">2026 年 11 月 11 日</span>
               <svg class="calendar-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15.5" rx="2"></rect><path d="M7.5 3.5v3M16.5 3.5v3M3.5 9.5h17"></path></svg>
             </button>
             <div id="date-picker-popover" class="date-picker-popover" role="dialog" aria-label="选择地图日期" hidden>
@@ -246,31 +246,28 @@
         <article class="day-card">
           <div class="day-meta">
             <p class="day-name">今天</p>
-            <time class="day-date" id="today-date" datetime="2026-11-09">11 月 9 日 · 周一</time>
+            <time class="day-date" id="today-date" datetime="2026-11-11">11 月 11 日 · 周三</time>
           </div>
           <div class="map-list" id="today-maps">
-            <div class="map-name" data-map="烬区"><span>烬区</span></div><div class="map-name" data-map="风暴眼"><span>风暴眼</span></div><div class="map-name" data-map="天际港"><span>天际港</span></div>
+            <div class="map-name" data-map="烬区"><span>烬区</span></div><div class="map-name" data-map="余震"><span>余震</span></div><div class="map-name" data-map="天际港"><span>天际港</span></div>
           </div>
         </article>
-        <article class="day-card tomorrow">
+        <article class="day-card tomorrow" hidden>
           <div class="day-meta">
             <p class="day-name">明天</p>
-            <time class="day-date" id="tomorrow-date" datetime="2026-11-10">11 月 10 日 · 周二</time>
+            <time class="day-date" id="tomorrow-date" datetime="2026-11-12">11 月 12 日 · 周四</time>
           </div>
-          <div class="map-list" id="tomorrow-maps">
-            <div class="map-name" data-map="攀升"><span>攀升</span></div><div class="map-name" data-map="断层"><span>断层</span></div><div class="map-name" data-map="摩格旧城区"><span>摩格旧城区</span></div>
-          </div>
+          <div class="map-list" id="tomorrow-maps"></div>
         </article>
       </section>
 
       <section class="schedule" aria-labelledby="schedule-title">
         <header class="schedule-head">
           <h2 id="schedule-title">排期</h2>
-          <p id="schedule-subtitle">11/9–11/10 · 2 日排期</p>
+          <p id="schedule-subtitle">11/11</p>
         </header>
         <ol class="schedule-list" id="schedule-list">
-          <li class="schedule-item is-selected" data-date="2026-11-09"><time class="schedule-date" datetime="2026-11-09"><span class="schedule-day">11/9</span><span class="schedule-weekday">周一</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="风暴眼">风暴眼</span> · <span class="schedule-map" data-map="天际港">天际港</span></span></li>
-          <li class="schedule-item" data-date="2026-11-10"><time class="schedule-date" datetime="2026-11-10"><span class="schedule-day">11/10</span><span class="schedule-weekday">周二</span></time><span class="schedule-maps"><span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断层">断层</span> · <span class="schedule-map" data-map="摩格旧城区">摩格旧城区</span></span></li>
+          <li class="schedule-item is-selected" data-date="2026-11-11"><time class="schedule-date" datetime="2026-11-11"><span class="schedule-day">11/11</span><span class="schedule-weekday">周三</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="余震">余震</span> · <span class="schedule-map" data-map="天际港">天际港</span></span></li>
         </ol>
       </section>
       <section class="highlight-settings" aria-labelledby="highlight-title">
@@ -327,6 +324,11 @@
             { name: "攀升" },
             { name: "断层" },
             { name: "摩格旧城区" },
+          ],
+          "2026-11-11": [
+            { name: "烬区" },
+            { name: "余震" },
+            { name: "天际港" },
           ],
         };
         const allMaps = [...new Set([...mapPairs.flat(), ...legacyMapPairs.flat(), ...thirdCycle7, ...thirdCycle8, "天际港"])];
