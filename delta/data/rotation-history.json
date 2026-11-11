@@ -149,6 +149,11 @@
         { "name": "烬区", "source": "user-report", "reportedAt": "2026-11-11", "period": "白天" },
         { "name": "余震", "source": "user-report" },
         { "name": "天际港", "source": "user-report" }
+      ],
+      "2026-11-12": [
+        { "name": "攀升", "source": "user-report", "reportedAt": "2026-11-11" },
+        { "name": "断轨", "source": "user-report" },
+        { "name": "摩格旧城区", "reportedName": "旧城区", "source": "user-report" }
       ]
     }
   }

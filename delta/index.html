@@ -252,22 +252,25 @@
             <div class="map-name" data-map="烬区"><span>烬区</span></div><div class="map-name" data-map="余震"><span>余震</span></div><div class="map-name" data-map="天际港"><span>天际港</span></div>
           </div>
         </article>
-        <article class="day-card tomorrow" hidden>
+        <article class="day-card tomorrow">
           <div class="day-meta">
             <p class="day-name">明天</p>
             <time class="day-date" id="tomorrow-date" datetime="2026-11-12">11 月 12 日 · 周四</time>
           </div>
-          <div class="map-list" id="tomorrow-maps"></div>
+          <div class="map-list" id="tomorrow-maps">
+            <div class="map-name" data-map="攀升"><span>攀升</span></div><div class="map-name" data-map="断轨"><span>断轨</span></div><div class="map-name" data-map="摩格旧城区"><span>摩格旧城区</span></div>
+          </div>
         </article>
       </section>
 
       <section class="schedule" aria-labelledby="schedule-title">
         <header class="schedule-head">
           <h2 id="schedule-title">排期</h2>
-          <p id="schedule-subtitle">11/11</p>
+          <p id="schedule-subtitle">11/11–11/12 · 2 日排期</p>
         </header>
         <ol class="schedule-list" id="schedule-list">
           <li class="schedule-item is-selected" data-date="2026-11-11"><time class="schedule-date" datetime="2026-11-11"><span class="schedule-day">11/11</span><span class="schedule-weekday">周三</span></time><span class="schedule-maps"><span class="schedule-map" data-map="烬区">烬区</span> · <span class="schedule-map" data-map="余震">余震</span> · <span class="schedule-map" data-map="天际港">天际港</span></span></li>
+          <li class="schedule-item" data-date="2026-11-12"><time class="schedule-date" datetime="2026-11-12"><span class="schedule-day">11/12</span><span class="schedule-weekday">周四</span></time><span class="schedule-maps"><span class="schedule-map" data-map="攀升">攀升</span> · <span class="schedule-map" data-map="断轨">断轨</span> · <span class="schedule-map" data-map="摩格旧城区">摩格旧城区</span></span></li>
         </ol>
       </section>
       <section class="highlight-settings" aria-labelledby="highlight-title">
@@ -329,6 +332,11 @@
             { name: "烬区" },
             { name: "余震" },
             { name: "天际港" },
+          ],
+          "2026-11-12": [
+            { name: "攀升" },
+            { name: "断轨" },
+            { name: "摩格旧城区" },
           ],
         };
         const allMaps = [...new Set([...mapPairs.flat(), ...legacyMapPairs.flat(), ...thirdCycle7, ...thirdCycle8, "天际港"])];
