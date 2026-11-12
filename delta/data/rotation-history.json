@@ -1,6 +1,6 @@
 {
   "page": "《胜者为王》地图",
-  "updatedAt": "2026-11-11",
+  "updatedAt": "2026-11-13",
   "retiredRotation": {
     "status": "retired",
     "confirmedRange": {
@@ -98,7 +98,7 @@
     }
   ],
   "currentRotation": {
-    "status": "observed-only",
+    "status": "inferred-cycle",
     "season": {
       "name": null,
       "startDate": null,
@@ -112,8 +112,23 @@
       "observedAt": "2026-11-05",
       "timezone": "UTC+08"
     },
-    "rule": null,
-    "ruleNote": "仅展示逐日记录，不外推后续日期。",
+    "rule": {
+      "anchor": "2026-11-05",
+      "fixedPair": {
+        "type": "daily-alternation",
+        "sequence": [
+          ["烬区", "天际港"],
+          ["攀升", "摩格旧城区"]
+        ],
+        "note": "每组的第一张与最后一张地图；偶数日（自锚点起算）用第一组，奇数日用第二组"
+      },
+      "rotatingMap": {
+        "type": "eight-day-cycle",
+        "position": "middle",
+        "sequence": ["堑壕战", "临界点", "金字塔", "克劳狄斗兽场", "风暴眼", "断层", "余震", "断轨"]
+      }
+    },
+    "ruleNote": "由 2026-11-05 至 2026-11-13 的用户截图与报告推断，非官方确认；11-13 的堑壕战为第一次观察到的循环回归。若有相反报告，以逐日 observations 为准。纪实等模式标记只来自 observations，不随规律重复。",
     "observations": {
       "2026-11-05": [
         { "name": "烬区", "source": "user-confirmation" },
@@ -154,6 +169,11 @@
         { "name": "攀升", "source": "user-report", "reportedAt": "2026-11-11" },
         { "name": "断轨", "source": "user-report" },
         { "name": "摩格旧城区", "reportedName": "旧城区", "source": "user-report" }
+      ],
+      "2026-11-13": [
+        { "name": "烬区", "source": "user-report", "reportedAt": "2026-11-12" },
+        { "name": "堑壕战", "reportedName": "堑壕", "source": "user-report" },
+        { "name": "天际港", "source": "user-report" }
       ]
     }
   }
